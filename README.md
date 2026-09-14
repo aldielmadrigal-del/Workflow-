@@ -1,78 +1,100 @@
 # CryptoFiscal Lead Automation
 
-Demo práctica de automatización de consultas para un entorno de servicios fiscales y crypto.
+Practical automation demo for receiving, classifying and prioritizing client inquiries in a fiscal and crypto services environment.
 
-## Workflow
+## What it does
 
-Cliente
-↓
-Webhook /consulta
-↓
-Validación
-↓
-Clasificación
-↓
-Prioridad
-↓
-¿Requiere atención humana?
-↓
-Respuesta automática
-↓
-Registro
+The system receives a client inquiry through an HTTP webhook and automatically:
 
-## Qué hace
+1. Validates the submitted data.
+2. Classifies the inquiry by topic.
+3. Assigns a priority level.
+4. Determines whether human attention is required.
+5. Generates an automatic response.
+6. Creates a unique request ID.
+7. Stores the request for later consultation.
 
-El sistema recibe una consulta mediante un endpoint HTTP POST /consulta.
+### Workflow
 
-A partir de los datos recibidos:
+**Client → Webhook → Validation → Classification → Priority → Human attention decision → Automatic response → Record**
 
-1. Valida nombre, email y consulta.
-2. Clasifica la consulta.
-3. Determina su prioridad.
-4. Decide si requiere atención humana.
-5. Genera una respuesta automática.
-6. Asigna un identificador único.
-7. Registra la solicitud.
+## Example
 
-También permite consultar las solicitudes mediante GET /consultas.
+Input:
 
-## Tecnologías
+> "Quiero saber cómo declarar mis ganancias de Bitcoin."
+
+Automated result:
+
+- **Type:** Fiscalidad cripto
+- **Priority:** Media
+- **Human attention:** No
+- **Automatic response:** Generated
+- **Request ID:** CF-000004
+
+Urgent requests related to Hacienda or legal matters are automatically classified as high priority and marked for human review.
+
+## API
+
+### POST /consulta
+
+Receives a client inquiry.
+
+Expected fields:
+
+- `nombre`
+- `email`
+- `consulta`
+
+### GET /consultas
+
+Returns the stored inquiries.
+
+## Technologies
 
 - Python
 - HTTP
 - JSON
 - Webhooks
-- APIs
-- Validación de datos
-- Automatización de procesos
-- Lógica condicional
+- API endpoints
+- Data validation
+- Conditional logic
+- Process automation
 
-## Ejemplo
+## Why this demo
 
-Una consulta sobre Bitcoin puede clasificarse como:
+The project demonstrates the core logic behind an operational automation workflow: receiving information, processing it, making decisions based on rules, generating an action, and recording the result.
 
-Fiscalidad cripto
+The current implementation uses deterministic rules. The architecture can later be extended with AI models and external integrations such as WhatsApp, Gmail, CRMs or other automation platforms.
 
-Una consulta urgente relacionada con Hacienda puede clasificarse como:
+## Run locally
 
-Fiscalidad / legal
+Requires Python 3.
 
-y marcarse para atención humana prioritaria.
+Run:
 
-## Objetivo
+    python main.py
 
-Esta demo muestra cómo transformar un proceso manual de recepción y clasificación de consultas en un workflow automatizado.
+The server starts locally at:
 
-La implementación actual utiliza reglas deterministas. La arquitectura permite incorporar posteriormente componentes de IA e integraciones externas.
+`http://127.0.0.1:8000`
 
-## Ejecución
+### Workflow
 
-Requiere Python 3.
+**Client → Webhook → Validation → Classification → Priority → Human attention decision → Automatic response → Record**
 
-Ejecutar:
+## Example
 
-python main.py
+Input:
 
-Servidor local:
+> "Quiero saber cómo declarar mis ganancias de Bitcoin."
 
-http://127.0.0.1:8000
+Automated result:
+
+- **Type:** Fiscalidad cripto
+- **Priority:** Media
+- **Human attention:** No
+- **Automatic response:** Generated
+- **Request ID:** CF-000004
+
+Urgent requests related to Hacienda or legal matters are automatically classified as high priority and marked for human review.
